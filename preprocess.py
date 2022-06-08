@@ -1,12 +1,17 @@
 from time import time
+
+import nltk as nltk
+nltk.download('stopwords')
 import numpy as np
 import string
+
+import stopwords as stopwords
 
 from techniques import *
 
 print("Starting preprocess..\n")
 
-""" Tokenizes a text to its words, removes and replaces some of them """    
+""" Tokenizes a text to its words, removes and replaces some of them """
 finalTokens = [] # all tokens
 stoplist = stopwords.words('english')
 my_stopwords = "multiexclamation multiquestion multistop url atuser st rd nd th am pm" # my extra stopwords
@@ -22,16 +27,16 @@ def tokenize(text, wordCountBefore, textID, y):
     onlyOneSentenceTokens = [] # tokens of one sentence each time
 
     tokens = nltk.word_tokenize(text)
-    
+
     tokens = replaceNegations(tokens) # Technique 6: finds "not" and antonym for the next word and if found, replaces not and the next word with the antonym
-    
+
     translator = str.maketrans('', '', string.punctuation)
     text = text.translate(translator) # Technique 7: remove punctuation
 
     tokens = nltk.word_tokenize(text) # it takes a text as an input and provides a list of every token in it
-    
+
 ### NO POS TAGGING BEGIN (If you don't want to use POS Tagging keep this section uncommented) ###
-    
+
 ##    for w in tokens:
 ##
 ##        if (w not in stoplist): # Technique 10: remove stopwords
@@ -46,9 +51,9 @@ def tokenize(text, wordCountBefore, textID, y):
 ### NO POS TAGGING END ###
 
 
-### POS TAGGING BEGIN (If you want to exclude words using POS Tagging, keep this section uncommented and comment the above) ###          
-            
-    tagged = nltk.pos_tag(tokens) # Technique 13: part of speech tagging  
+### POS TAGGING BEGIN (If you want to exclude words using POS Tagging, keep this section uncommented and comment the above) ###
+
+    tagged = nltk.pos_tag(tokens) # Technique 13: part of speech tagging
     for w in tagged:
 
         if (w[1][0] in allowedWordTypes and w[0] not in stoplist):
@@ -61,19 +66,19 @@ def tokenize(text, wordCountBefore, textID, y):
             final_word = stemmer.stem(final_word)
 
 ### POS TAGGING END ###
-                
-            onlyOneSentenceTokens.append(final_word)           
+
+            onlyOneSentenceTokens.append(final_word)
             finalTokens.append(final_word)
 
-         
+
     onlyOneSentence = " ".join(onlyOneSentenceTokens) # form again the sentence from the list of tokens
     #print(onlyOneSentence) # print final sentence
 
-    
+
     """ Write the preprocessed text to file """
     with open("result.txt", "a") as result:
         result.write(textID+"\t"+y+"\t"+onlyOneSentence+"\n")
-        
+
     return finalTokens
 
 
@@ -101,9 +106,9 @@ for line in f.split('\n'):
 
     text = removeUnicode(columns[1]) # Technique 0
     #print(text) # print initial text
-    wordCountBefore = len(re.findall(r'\w+', text)) # word count of one sentence before preprocess    
+    wordCountBefore = len(re.findall(r'\w+', text)) # word count of one sentence before preprocess
     #print("Words before preprocess: ",wordCountBefore,"\n")
-    
+
     text = replaceURL(text) # Technique 1
     text = replaceAtUser(text) # Technique 1
     text = removeHashtagInFrontOfWord(text) # Technique 1
@@ -112,32 +117,32 @@ for line in f.split('\n'):
     totalSlangs += temp_slangs # total slangs for all sentences
     for word in temp_slangsFound:
         totalSlangsFound.append(word) # all the slangs found in all sentences
-    
+
     text = replaceSlang(text) # Technique 2: replaces slang words and abbreviations with their equivalents
     text = replaceContraction(text) # Technique 3: replaces contractions to their equivalents
     text = removeNumbers(text) # Technique 4: remove integers from text
 
     emoticons = countEmoticons(text) # how many emoticons in this sentence
     totalEmoticons += emoticons
-    
+
     text = removeEmoticons(text) # removes emoticons from text
 
-    
+
     totalAllCaps += countAllCaps(text)
 
     totalMultiExclamationMarks += countMultiExclamationMarks(text) # how many repetitions of exlamation marks in this sentence
     totalMultiQuestionMarks += countMultiQuestionMarks(text) # how many repetitions of question marks in this sentence
     totalMultiStopMarks += countMultiStopMarks(text) # how many repetitions of stop marks in this sentence
-    
+
     text = replaceMultiExclamationMark(text) # Technique 5: replaces repetitions of exlamation marks with the tag "multiExclamation"
     text = replaceMultiQuestionMark(text) # Technique 5: replaces repetitions of question marks with the tag "multiQuestion"
     text = replaceMultiStopMark(text) # Technique 5: replaces repetitions of stop marks with the tag "multiStop"
 
     totalElongated += countElongated(text) # how many elongated words emoticons in this sentence
-    
-    tokens = tokenize(text, wordCountBefore, textID, y)  
-    
-    
+
+    tokens = tokenize(text, wordCountBefore, textID, y)
+
+
 print("Total sentences: ",totalSentences,"\n")
 print("Total Words before preprocess: ",len(re.findall(r'\w+', f)))
 print("Total Distinct Tokens before preprocess: ",len(set(re.findall(r'\w+', f))))
