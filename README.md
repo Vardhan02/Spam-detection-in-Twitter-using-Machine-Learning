@@ -1,4 +1,4 @@
-# Spam-detection-in-Twitter-using-ML
+# Spam detection in Twitter using Machine Learning
 Spam detection and removal in Twitter using Machine Learning techniques containing text pre-processing techniques and sentiment analysis.
 
 Twitter Sentiment analysis offers organisations and individuals a fast and effective way to monitor the public feelings towards them and their competitors. It allows to keep track of what's being said about any product or service on social media, and can help to detect angry customers or negative mentions before they escalate. So, it should be analysed using a classifier and based on the results, those comments should be removed. Any classifier classifies text based on proper words and not on random symbols that confuses the classifier which should be replaced by appropriate words. So that, it can easily distinguish between positive and negative sentiment sentences and classify it accordingly.
