@@ -1,38 +1,6 @@
 # Spam-detection-in-Twitter-using-ML
 Spam detection and removal in Twitter using Machine Learning techniques containing text pre-processing techniques and sentiment analysis.
 
-Most of these techniques are generic and can be used in various applications except Sentiment Analysis. 
-They are the following:
-
-#### 0. Remove Unicode Strings and Noise
-#### 1. Replace URLs, User Mentions and Hashtags
-#### 2. Replcae Slang and Abbreviations
-#### 3. Replace Contractions
-#### 4. Remove Numbers
-#### 5. Replace Repetitions of Punctuation
-#### 6. Replace Negations with Antonyms
-#### 7. Remove Punctuation
-#### 8. Handling Capitalized Words
-#### 9. Lowercase
-#### 10. Remove Stopwords
-#### 11. Replace Elongated Words
-#### 12. Spelling Correction
-#### 13. Part of Speech Tagging
-#### 14. Lemmatizing
-#### 15. Stemming
-
-This scripts also prints some statistics for the text file like: 
-
-- Total Sentences
-- Total Words before and after preprocess
-- Total Unique words before and after preprocess
-- Average Words per Sentence before and after preprocess
-- Total Run time
-- Total Emoticons found
-- Total Slangs and Abbreviations found
-- 20 Most Commong Sland and Abbreviations and plots them
-- Total Elongated words
-- Total multi Exclamation
-- question and stop marks
-- Total All Capitalized words
-- 100 Most Common words and plots them and most common bigram and trigram collocations
+Twitter Sentiment analysis offers organisations and individuals a fast and effective way to monitor the public feelings towards them and their competitors. It allows to keep track of what's being said about any product or service on social media, and can help to detect angry customers or negative mentions before they escalate. So, it should be analysed using a classifier and based on the results, those comments should be removed. Any classifier classifies text based on proper words and not on random symbols that confuses the classifier which should be replaced by appropriate words. So that, it can easily distinguish between positive and negative sentiment sentences and classify it accordingly.
+	Pre-processing is one of the key components in a typical text classification framework. Pre-processing is the first step in text classification based on emotion and choosing the right pre-processing techniques can improve classification effectiveness. There are techniques like lemmatizing, stemming which integrate the dataset and removing numbers, emoticons, hashtag which reduce the dataset and replacing elongated words, punctuations, question marks, exclamation marks, contractions with appropriate words may provide significant improvement on classification accuracy.
+	Some statistics for the dataset like total unique and average word per sentence before and after pre-process, total elongated words, total multi stop, multi exclamation and total slangs words were also found. This paper aims extensively at text pre-processing which will help classification in terms of various aspects such as classification accuracy, speed, and dimension reduction.
